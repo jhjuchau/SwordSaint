@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://cetup1jq7mj0x"]
+
+[ext_resource type="Script" path="res://scenes/enemies/enemy_scripts/enemy_slime_guy_chara.gd" id="1_wqoua"]
+[ext_resource type="Texture2D" uid="uid://dfr4uxpvb6plx" path="res://assets/2D/brackeys_platformer_assets/sprites/slime_green.png" id="2_gyt3j"]
+[ext_resource type="PackedScene" uid="uid://vxlnjdq4mpnn" path="res://scenes/level topology/killzone.tscn" id="3_rsofp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kv6bm"]
+atlas = ExtResource("2_gyt3j")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdm2a"]
+atlas = ExtResource("2_gyt3j")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndrrb"]
+atlas = ExtResource("2_gyt3j")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v32gj"]
+atlas = ExtResource("2_gyt3j")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cwlql"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kv6bm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdm2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndrrb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v32gj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tafjq"]
+size = Vector2(15.75, 12.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5ukl"]
+size = Vector2(16, 13)
+
+[node name="enemy_slime_guy_chara" type="CharacterBody2D"]
+script = ExtResource("1_wqoua")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cwlql")
+autoplay = "default"
+frame_progress = 0.296944
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(15, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(-15, 0)
+
+[node name="enemy_collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_tafjq")
+
+[node name="Killzone" parent="." instance=ExtResource("3_rsofp")]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_r5ukl")
+
+[connection signal="area_shape_entered" from="Killzone" to="." method="_on_killzone_area_shape_entered"]

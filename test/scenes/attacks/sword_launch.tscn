@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://mrh4hccily70"]
+
+[ext_resource type="Script" path="res://scenes/attacks/attack_scripts/sword_launch.gd" id="1_t2owr"]
+[ext_resource type="Texture2D" uid="uid://8slo7hbvj3jx" path="res://assets/2D/Pixel Platformer/Tilemap/tilemap.png" id="2_djbn1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16ebd"]
+atlas = ExtResource("2_djbn1")
+region = Rect2(285, 84, 19, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4drwu"]
+atlas = ExtResource("2_djbn1")
+region = Rect2(247, 84, 19, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aa07q"]
+animations = [{
+"frames": [{
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_16ebd")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_4drwu")
+}],
+"loop": false,
+"name": &"attack_launch",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjkkl"]
+size = Vector2(16, 32)
+
+[node name="sword_launch" type="Node2D"]
+position = Vector2(-14, -13)
+script = ExtResource("1_t2owr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-5.75, 4.5)
+scale = Vector2(0.969657, 1.05294)
+sprite_frames = SubResource("SpriteFrames_aa07q")
+animation = &"attack_launch"
+autoplay = "attack_launch"
+frame = 1
+frame_progress = 1.0
+
+[node name="sword_area" type="Area2D" parent="."]
+
+[node name="sword_launch_collision" type="CollisionShape2D" parent="sword_area"]
+position = Vector2(-5, 4)
+shape = SubResource("RectangleShape2D_tjkkl")
+
+[connection signal="area_entered" from="sword_area" to="." method="_on_sword_area_area_entered"]
+[connection signal="area_shape_entered" from="sword_area" to="." method="_on_sword_area_area_shape_entered"]

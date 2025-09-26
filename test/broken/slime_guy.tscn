@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://nc5bpahymy58"]
+
+[ext_resource type="Script" path="res://scenes/enemies/enemy_scripts/slime_guy.gd" id="1_cfxgw"]
+[ext_resource type="PackedScene" uid="uid://cetup1jq7mj0x" path="res://scenes/enemies/enemy_slime_guy_chara.tscn" id="2_vydib"]
+
+[node name="Slime_Guy" type="Node2D"]
+position = Vector2(1, -13)
+script = ExtResource("1_cfxgw")
+
+[node name="enemy_slime_guy_chara" parent="." instance=ExtResource("2_vydib")]

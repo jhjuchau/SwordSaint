@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://clxa0a8a7qay0"]
+
+[ext_resource type="Texture2D" uid="uid://c0elkwiex2jwc" path="res://assets/2D/Pixel Platformer/Tilemap/tilemap-characters.png" id="1_nfm2q"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_xcb8v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrc5n"]
+atlas = ExtResource("1_nfm2q")
+region = Rect2(0, 0, 23, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr4mo"]
+atlas = ExtResource("1_nfm2q")
+region = Rect2(25, 0, 23, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vhi0o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nrc5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vr4mo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0pbvy"]
+size = Vector2(20, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52hek"]
+atlas = ExtResource("1_nfm2q")
+region = Rect2(150, 1, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxjpj"]
+atlas = ExtResource("1_nfm2q")
+region = Rect2(174, 1, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ubnrm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52hek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxjpj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_xcb8v")
+
+[node name="player_sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_vhi0o")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.582181
+
+[node name="player_collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_0pbvy")
+
+[node name="SwordPosition" type="Marker2D" parent="."]
+position = Vector2(-10, -5)
+
+[node name="charging_player_sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -11)
+sprite_frames = SubResource("SpriteFrames_ubnrm")
+autoplay = "default"
+frame_progress = 0.568602

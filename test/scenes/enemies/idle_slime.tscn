@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://bxnvag6qmuele"]
+
+[ext_resource type="Script" path="res://scenes/enemies/idle_slime.gd" id="1_ifwdp"]
+[ext_resource type="Texture2D" uid="uid://uey75ynnr3ia" path="res://assets/2D/brackeys_platformer_assets/sprites/slime_purple.png" id="2_sq87b"]
+[ext_resource type="PackedScene" uid="uid://vxlnjdq4mpnn" path="res://scenes/level topology/killzone.tscn" id="3_nt163"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hxt0"]
+atlas = ExtResource("2_sq87b")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pelfg"]
+atlas = ExtResource("2_sq87b")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1ny2"]
+atlas = ExtResource("2_sq87b")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cntru"]
+atlas = ExtResource("2_sq87b")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cwlql"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hxt0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pelfg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1ny2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cntru")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tafjq"]
+size = Vector2(15.75, 12.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5ukl"]
+size = Vector2(16, 13)
+
+[node name="idle_slime_chara" type="CharacterBody2D"]
+script = ExtResource("1_ifwdp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cwlql")
+autoplay = "default"
+frame_progress = 0.296944
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(15, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(-15, 0)
+
+[node name="enemy_collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_tafjq")
+
+[node name="Killzone" parent="." instance=ExtResource("3_nt163")]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_r5ukl")
+
+[connection signal="area_shape_entered" from="Killzone" to="." method="_on_killzone_area_shape_entered"]

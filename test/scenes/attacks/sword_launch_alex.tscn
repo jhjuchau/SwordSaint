@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdpfcno4ky2mg"]
+
+[ext_resource type="Script" path="res://scenes/attacks/attack_scripts/sword_launch_alex.gd" id="1_5p7tf"]
+[ext_resource type="Texture2D" uid="uid://cde641drb1uyk" path="res://assets/2D/alex/alexsword.png" id="2_h7nqv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ven8"]
+atlas = ExtResource("2_h7nqv")
+region = Rect2(0, 0, 316, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h48je"]
+atlas = ExtResource("2_h7nqv")
+region = Rect2(0, 301, 316, 301)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aa07q"]
+animations = [{
+"frames": [{
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_0ven8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h48je")
+}],
+"loop": false,
+"name": &"attack_alex_sword",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjkkl"]
+size = Vector2(36, 41)
+
+[node name="sword_alex" type="Node2D"]
+position = Vector2(-82, -3)
+script = ExtResource("1_5p7tf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(82, -11)
+rotation = 3.14159
+scale = Vector2(0.1, 0.109)
+sprite_frames = SubResource("SpriteFrames_aa07q")
+animation = &"attack_alex_sword"
+autoplay = "attack_alex_sword"
+frame = 1
+frame_progress = 1.0
+
+[node name="sword_area" type="Area2D" parent="."]
+position = Vector2(-32, 2)
+
+[node name="sword_alex_collision" type="CollisionShape2D" parent="sword_area"]
+position = Vector2(114, -13)
+scale = Vector2(1.02791, 0.896704)
+shape = SubResource("RectangleShape2D_tjkkl")
+
+[connection signal="area_entered" from="sword_area" to="." method="_on_sword_area_area_entered"]

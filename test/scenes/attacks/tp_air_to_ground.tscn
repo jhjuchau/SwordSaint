@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://bw8y4evjppx2v"]
+
+[ext_resource type="Script" path="res://scenes/attacks/attack_scripts/sword_horizontal.gd" id="1_10bp7"]
+[ext_resource type="Texture2D" uid="uid://8slo7hbvj3jx" path="res://assets/2D/Pixel Platformer/Tilemap/tilemap.png" id="2_skhek"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v71x8"]
+atlas = ExtResource("2_skhek")
+region = Rect2(216, 114, 35, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yo1m"]
+atlas = ExtResource("2_skhek")
+region = Rect2(252, 114, 35, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aa07q"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_v71x8")
+}, {
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_3yo1m")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_v71x8")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjkkl"]
+size = Vector2(34, 13)
+
+[node name="tp_air_to_ground" type="Node2D"]
+position = Vector2(-14, -13)
+script = ExtResource("1_10bp7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-5.75, 4.5)
+scale = Vector2(0.969657, 1.05294)
+sprite_frames = SubResource("SpriteFrames_aa07q")
+animation = &"attack"
+frame = 1
+frame_progress = 1.0
+
+[node name="tp_air_to_ground_area" type="Area2D" parent="."]
+
+[node name="sword_hor_collision" type="CollisionShape2D" parent="tp_air_to_ground_area"]
+position = Vector2(-6, 4)
+shape = SubResource("RectangleShape2D_tjkkl")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(14, 6)
+emitting = false
+amount = 200
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.4
+randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 24.51
+direction = Vector2(1, -10)
+spread = 80.51
+gravity = Vector2(-10, -20)
+initial_velocity_max = 27.21
+angle_min = -401.6
+angle_max = 103.5
+color = Color(0, 1, 1, 1)
+hue_variation_min = 0.01
+hue_variation_max = 0.86
+
+[connection signal="area_entered" from="tp_air_to_ground_area" to="." method="_on_sword_hor_area_area_entered"]
+[connection signal="area_shape_entered" from="tp_air_to_ground_area" to="." method="_on_sword_hor_area_area_shape_entered"]

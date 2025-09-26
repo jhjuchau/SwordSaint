@@ -1,0 +1,159 @@
+[gd_scene load_steps=20 format=3 uid="uid://clxa0a8a7qay0"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_xcb8v"]
+[ext_resource type="Texture2D" uid="uid://bv40f255yl3ih" path="res://assets/2D/brackeys_platformer_assets/sprites/knight.png" id="2_radow"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20kfa"]
+atlas = ExtResource("2_radow")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3e720"]
+atlas = ExtResource("2_radow")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gppa6"]
+atlas = ExtResource("2_radow")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f00fd"]
+atlas = ExtResource("2_radow")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qwjc"]
+atlas = ExtResource("2_radow")
+region = Rect2(128, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpwdl"]
+atlas = ExtResource("2_radow")
+region = Rect2(160, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pde7"]
+atlas = ExtResource("2_radow")
+region = Rect2(192, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mxt6"]
+atlas = ExtResource("2_radow")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4d20x"]
+atlas = ExtResource("2_radow")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_os0hp"]
+atlas = ExtResource("2_radow")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gylap"]
+atlas = ExtResource("2_radow")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vhi0o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20kfa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3e720")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gppa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f00fd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qwjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpwdl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pde7")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mxt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4d20x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_os0hp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gylap")
+}],
+"loop": true,
+"name": &"run",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0pbvy"]
+size = Vector2(20, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svygm"]
+atlas = ExtResource("2_radow")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3vlm"]
+atlas = ExtResource("2_radow")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofeue"]
+atlas = ExtResource("2_radow")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ubnrm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svygm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3vlm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofeue")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_xcb8v")
+
+[node name="player_sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_vhi0o")
+animation = &"jump"
+autoplay = "run"
+
+[node name="player_collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_0pbvy")
+
+[node name="SwordPosition" type="Marker2D" parent="."]
+position = Vector2(-10, -5)
+
+[node name="charging_player_sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -11)
+sprite_frames = SubResource("SpriteFrames_ubnrm")
+autoplay = "default"
+frame_progress = 0.568602
+
+[node name="FootPosition" type="Marker2D" parent="."]
+
+[node name="TPFloorDetect" type="RayCast2D" parent="."]
+target_position = Vector2(0, 197)

@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://duiak0dg35eko"]
+
+[ext_resource type="Script" path="res://scenes/level topology/coin.gd" id="1_k4a2i"]
+[ext_resource type="Texture2D" uid="uid://8slo7hbvj3jx" path="res://assets/2D/Pixel Platformer/Tilemap/tilemap.png" id="1_tfcen"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_af21k"]
+atlas = ExtResource("1_tfcen")
+region = Rect2(209, 133, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k64uo"]
+atlas = ExtResource("1_tfcen")
+region = Rect2(228, 133, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5qt4o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_af21k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k64uo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wn2im"]
+radius = 7.28011
+
+[node name="Coin" type="Area2D"]
+collision_mask = 3
+script = ExtResource("1_k4a2i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5qt4o")
+autoplay = "default"
+frame_progress = 0.287479
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wn2im")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

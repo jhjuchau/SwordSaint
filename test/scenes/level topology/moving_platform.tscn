@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dutw1fapbtxeu"]
+
+[ext_resource type="Texture2D" uid="uid://c0elkwiex2jwc" path="res://assets/2D/Pixel Platformer/Tilemap/tilemap-characters.png" id="1_piqxo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkpwf"]
+size = Vector2(48, 25)
+
+[node name="Moving Platform" type="AnimatableBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_piqxo")
+region_enabled = true
+region_rect = Rect2(100, 0, 52, 28)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -2)
+shape = SubResource("RectangleShape2D_dkpwf")
