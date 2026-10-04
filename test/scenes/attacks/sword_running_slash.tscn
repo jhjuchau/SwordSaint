@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/attacks/slash_sprite.gd" id="slash_sprite"]
+
+[node name="sword_running_slash" type="Node2D"]
+position = Vector2(-14, -13)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-6, 9.5)
+script = ExtResource("slash_sprite")
+arc = "running"
+
+[node name="sword_area" type="Area2D" parent="."]

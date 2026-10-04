@@ -1,0 +1,6 @@
+# Lines shown under the "BREAK!" banner. One is picked at random on every Stagger Break.
+# Add one line per line. Blank lines and lines starting with # are ignored.
+Now's your chance!
+The Wheel of Fate is Turning!
+A strong wind blows...
+We like Minecraft!

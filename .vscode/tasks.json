@@ -1,0 +1,35 @@
+{
+	// Ctrl+Shift+B runs the default build task: launches the game in a debug window.
+	// Its output (prints, script errors) shows in VS Code's terminal panel.
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run SwordSaint",
+			"type": "process",
+			"command": "C:\\Users\\James\\Desktop\\gam\\Godot\\Godot_v4.3-stable_win64_console.exe",
+			"args": ["--path", "${workspaceFolder}\\test"],
+			"group": { "kind": "build", "isDefault": true },
+			"presentation": { "reveal": "always", "panel": "dedicated", "clear": true },
+			"problemMatcher": []
+		},
+		{
+			"label": "Run SwordSaint (show collision shapes)",
+			"type": "process",
+			"command": "C:\\Users\\James\\Desktop\\gam\\Godot\\Godot_v4.3-stable_win64_console.exe",
+			"args": ["--path", "${workspaceFolder}\\test", "--debug-collisions"],
+			"group": "build",
+			"presentation": { "reveal": "always", "panel": "dedicated", "clear": true },
+			"problemMatcher": []
+		},
+		{
+			// Ctrl+Alt+B (bound in VS Code's user keybindings.json): the old slime test area.
+			"label": "Run Test Area",
+			"type": "process",
+			"command": "C:\\Users\\James\\Desktop\\gam\\Godot\\Godot_v4.3-stable_win64_console.exe",
+			"args": ["--path", "${workspaceFolder}\\test", "res://scenes/2D Game.tscn"],
+			"group": "build",
+			"presentation": { "reveal": "always", "panel": "dedicated", "clear": true },
+			"problemMatcher": []
+		}
+	]
+}

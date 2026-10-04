@@ -5,7 +5,8 @@ signal hit_enemy(enemy, attack_data)
 var attack_data = {
 	"x_velocity_change": 285,
 	"y_velocity_change": -80,
-	"damage": 1
+	"damage": 1,
+	"stagger_damage": 10 # Enemies have 30 stagger, so 3 hits cause a Stagger Break.
 }
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

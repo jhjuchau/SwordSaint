@@ -1,29 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d28uyx3ygrmf3"]
 
+[ext_resource type="Script" path="res://scenes/attacks/slash_sprite.gd" id="slash_sprite"]
 [ext_resource type="Script" path="res://scenes/attacks/sword_horizontal_finish.gd" id="1_5igul"]
-[ext_resource type="Texture2D" uid="uid://bwkqwv652kb53" path="res://assets/2D/brackeys_platformer_assets/sprites/world_tileset.png" id="2_dl4vn"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wa6kj"]
-atlas = ExtResource("2_dl4vn")
-region = Rect2(96, 48, 16, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_74axl"]
-atlas = ExtResource("2_dl4vn")
-region = Rect2(80, 48, 16, 48)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_aa07q"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wa6kj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_74axl")
-}],
-"loop": false,
-"name": &"attack",
-"speed": 2.0
-}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjkkl"]
 size = Vector2(37.447, 17.6853)
@@ -33,13 +11,9 @@ position = Vector2(-14, -13)
 script = ExtResource("1_5igul")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-5.75, 4.5)
-rotation = 1.5708
-scale = Vector2(0.969657, 1.05294)
-sprite_frames = SubResource("SpriteFrames_aa07q")
-animation = &"attack"
-frame = 1
-frame_progress = 1.0
+position = Vector2(-6, 9.5)
+script = ExtResource("slash_sprite")
+arc = "finisher"
 
 [node name="sword_area" type="Area2D" parent="."]
 position = Vector2(4, -4)

@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/attacks/slash_sprite.gd" id="slash_sprite"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_down"]
+size = Vector2(30.4, 76.8)
+
+[node name="sword_downward" type="Node2D"]
+position = Vector2(-22, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-6, -3.5)
+script = ExtResource("slash_sprite")
+arc = "downward"
+
+[node name="sword_area" type="Area2D" parent="."]
+
+[node name="sword_downward_collision" type="CollisionShape2D" parent="sword_area"]
+position = Vector2(-6, 35)
+shape = SubResource("RectangleShape2D_down")

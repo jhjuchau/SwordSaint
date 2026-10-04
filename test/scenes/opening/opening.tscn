@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" uid="uid://clxa0a8a7qay0" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scenes/game_manager.gd" id="2_game_manager"]
+[ext_resource type="Script" path="res://scenes/combat/combat_manager.gd" id="3_combat"]
+[ext_resource type="Script" path="res://scenes/opening/opening.gd" id="4_opening"]
+
+[node name="Opening" type="Node2D"]
+script = ExtResource("4_opening")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -20)
+zoom = Vector2(2.5, 2.5)
+position_smoothing_enabled = true
+
+[node name="GameManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_game_manager")
+
+[node name="swingLabel" type="Label" parent="GameManager"]
+visible = false
+
+[node name="CombatManager" type="Node" parent="." groups=["combat_manager"]]
+unique_name_in_owner = true
+script = ExtResource("3_combat")

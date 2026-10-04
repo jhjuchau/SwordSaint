@@ -5,15 +5,28 @@ extends CharacterBody2D
 @onready var enemy_collision: CollisionShape2D = $enemy_collision
 
 const SPEED = 60
+const MAX_STAGGER := 30.0
+const StaggerMeter = preload("res://scenes/combat/stagger_meter.gd")
 var direction := 1 #1 is right, -1 is left
 var HP := 3
+var stagger_meter # stagger_meter.gd, created in _ready()
+
+@onready var combat = get_tree().get_first_node_in_group("combat_manager")
 
 func _ready() -> void:
 	add_to_group("enemies")
+	stagger_meter = StaggerMeter.new()
+	stagger_meter.max_stagger = MAX_STAGGER
+	stagger_meter.reset()
+	stagger_meter.position = Vector2(0, -6)
+	add_child(stagger_meter)
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	# Frozen during a Stagger Break; the CombatManager moves us instead.
+	if combat and combat.time_stopped:
+		return
 	#velocity.x += 1*direction
 	if ray_cast_right.is_colliding(): 
 		direction = -1
@@ -40,25 +53,18 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 		#velocity.y -= 150
 		#print("slime area collision with sword")
 
-func apply_sword_hit(attack_data, facing_left):
+# Real-time hits deal no knockback; only Stagger Break attacks move enemies.
+func apply_sword_hit(attack_data, _facing_left):
 	print("idle slime hit")
-	print(attack_data)
-	print("facing_left: ", facing_left)
-	print(attack_data.x_velocity_change)
-	print(attack_data.x_velocity_change/2)
-	var applied_velocity = attack_data.x_velocity_change
-	if facing_left:
-		applied_velocity *= -1
 	HP -=1
 	#if HP <= 0 :
 		#print("idle slime defeated")
 		#queue_free()
-	if not is_on_floor():
-		velocity.x += applied_velocity
-	#take less horizontal knockback if on floor		
-	else:
-		velocity.x += applied_velocity / 2
+	apply_stagger(attack_data.get("stagger_damage", 0))
 
-	print("newly calculated velocity.x: ", velocity.x)
-	velocity.y /= 6
-	velocity.y += attack_data.y_velocity_change
+
+func apply_stagger(amount: float) -> void:
+	if combat == null or combat.time_stopped:
+		return
+	if stagger_meter.take(amount):
+		combat.start_stagger_break(self)
